@@ -1,11 +1,17 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from copy import deepcopy
+from enum import Enum
 
 @dataclass
 class item:
     valor: int | None
     tipo:  int 
+
+class tipo(Enum)::
+
+    PRIORITARIA = auto()
+
 
 class fila:
     def __init__(self):
@@ -49,17 +55,21 @@ class fila:
             self.elementos[self.fim] = item(deepcopy(self.posicao),0)
             self.fim += 1
 
+
     def enfileira_prioritaria(self):
             if self.cheia():
                 raise ValueError('Fila cheia')
             else:
-                i = self.fim
+                i = self.fim -1
                 while i > 0 and (( self.elementos[i].tipo > -1 and self.elementos[i].tipo < 2) or self.elementos[i].valor == None):
                     if self.elementos[i].tipo  != -1:
                         self.elementos[i].tipo += 1
-                    self.elementos[i-1] = self.elementos[i]
+                    self.elementos[i+1] = self.elementos[i]
                     i-=1
-                    
+                if self.elementos[i].tipo  != -1:
+                    self.elementos[i].tipo += 1
+                self.elementos[i+1] = self.elementos[i]
+                i-=1    
                 self.posicao += 1
                 self.elementos[i] = item(deepcopy(self.posicao),-1)
                 self.fim += 1
@@ -81,9 +91,8 @@ class fila:
             raise ValueError('Fila vazia')
         else:
             retorno = self.elementos[0].valor
-            for i in range(1,self.fim):
+            for i in range(0,self.fim):
                 self.elementos[i-1] = self.elementos[i]
             self.fim -= 1
             return retorno
     
-
