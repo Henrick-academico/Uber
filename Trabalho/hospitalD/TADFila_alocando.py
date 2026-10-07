@@ -8,9 +8,6 @@ class item:
     valor: int | None
     tipo:  int 
 
-class tipo(Enum)::
-
-    PRIORITARIA = auto()
 
 
 class fila:
@@ -60,16 +57,13 @@ class fila:
             if self.cheia():
                 raise ValueError('Fila cheia')
             else:
-                i = self.fim -1
-                while i > 0 and (( self.elementos[i].tipo > -1 and self.elementos[i].tipo < 2) or self.elementos[i].valor == None):
-                    if self.elementos[i].tipo  != -1:
-                        self.elementos[i].tipo += 1
-                    self.elementos[i+1] = self.elementos[i]
+                i = self.fim
+                while i > 0 and (( self.elementos[i-1].tipo > -1 and self.elementos[i-1].tipo < 2) or self.elementos[i].valor == None):
+                    if self.elementos[i-1].tipo  != -1:
+                        self.elementos[i-1].tipo += 1
+                    self.elementos[i] = self.elementos[i-1]
                     i-=1
-                if self.elementos[i].tipo  != -1:
-                    self.elementos[i].tipo += 1
-                self.elementos[i+1] = self.elementos[i]
-                i-=1    
+                
                 self.posicao += 1
                 self.elementos[i] = item(deepcopy(self.posicao),-1)
                 self.fim += 1
@@ -95,4 +89,3 @@ class fila:
                 self.elementos[i-1] = self.elementos[i]
             self.fim -= 1
             return retorno
-    
