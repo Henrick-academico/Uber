@@ -1,17 +1,17 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from copy import deepcopy
-from enum import Enum
 
 @dataclass
 class item:
     valor: int | None
     tipo:  int 
 
-
-
 class fila:
     def __init__(self):
+        """
+        Inicia a fila vazia com 10 de espaço de memória 
+        """
         tam_max           = 10
         self.posicao: int = 0
         self.elementos: list[item] = [item(None,-1)] * tam_max
@@ -21,10 +21,10 @@ class fila:
     def vazia(self) -> bool:
         '''retorna True se a fila estiver vazia e False caso contrário
         Exemplos:
-        >>> f = fila(5)
+        >>> f = fila()
         >>> f.vazia()
         True
-        >>> f.enfileira(item(2))
+        >>> f.enfileira_geral()
         >>> f.vazia()
         False'''
         return self.fim == 0
@@ -32,19 +32,29 @@ class fila:
     def cheia(self) -> bool:
         '''retorna True se a fila estiver cheia e False caso contrário
         Exemplos:
-        >>> f = fila(2)
+        >>> f = fila()
         >>> f.cheia()
         False
-        >>> f.enfileira(item(2))
+        >>> f.enfileira_geral()
         >>> f.cheia()
         False
-        >>> f.enfileira(item(1))
+        >>> f.enfileira_geral()
         >>> f.cheia()
-        True'''
+        False'''
         return self.fim == self.tam_max
     
     def enfileira_geral(self):
-        
+        """
+        Enfileira um elemento de forma normal, colocando no final da fila.
+        Exemplos:
+        >>> f = fila()
+        >>> f.vazia()
+        True
+        >>> f.enfileira_geral()
+        >>> f.vazia()
+        False
+
+        """
         if self.cheia():
             raise ValueError('Fila cheia')
         else:
@@ -54,6 +64,19 @@ class fila:
 
 
     def enfileira_prioritaria(self):
+            """
+            Enfileira um elemento com prioridade, ultrapassando elementos do tipo geral no máximo duas vezes.
+            Exemplos:
+            >>> f = fila()
+            >>> f.vazia()
+            True
+            >>> f.enfileira_geral()
+            >>> f.enfileira_geral() 
+            >>> f.enfileira_prioritaria()
+            >>> z = f.desenfileira()
+            >>> print(z)
+            3
+            """
             if self.cheia():
                 raise ValueError('Fila cheia')
             else:
@@ -74,13 +97,13 @@ class fila:
         '''remove um elemento ao inicio da fila caso a 
         mesma não esteja vazia
         Exemplos:
-        >>> f = fila(2)
-        >>> f.enfileira(item(2))
-        >>> f.enfileira(item(3))
-        >>> f.desenfileira()
-        >>> x: int = f.obtem_primeiro().valor
-        >>> x
-        3'''
+        >>> f = fila()
+        >>> f.enfileira_geral()
+        >>> f.enfileira_geral()
+        >>> x  = f.desenfileira()
+        >>> print(x)
+        1
+        '''
         if self.vazia():
             raise ValueError('Fila vazia')
         else:
