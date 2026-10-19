@@ -33,3 +33,8 @@ class fila:
             if self.vazia():
                 self.fim = self.inicio
             rem.prox = None
+    def conta_elementos(self , ptr: no) -> int:
+        if ptr == None:
+            return 0
+        else:
+            return 1 + self.conta_elementos(ptr.prox)
