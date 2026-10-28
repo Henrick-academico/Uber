@@ -108,6 +108,28 @@ class arvore_avl:
         q.altura = self.altura_no(q)
         w.altura = self.altura_no(w)
         return w
+    
+    def rotacao_dir(self, p:no) -> no:
+        q = p.esq
+        p.esq = q.dir
+        q.dir = p
+        p.altura = self.altura_no(p)
+        q.altura = self.altura_no(q)
+        return q   
+         
+    def rotacao_dupla_dir(self, p: no) -> no:
+        q = p.esq
+        w = q.dir
+        q.dir = w.esq
+        p.esq = w.dir
+        w.esq = q
+        w.dir = p
+
+        p.altura = self.altura_no(p)
+        q.altura = self.altura_no(q)
+        w.altura = self.altura_no(w)
+
+        return w
      
     def balanceia(self, n: no | None) -> no | None:
         if n != None:
@@ -124,4 +146,4 @@ class arvore_avl:
                 else:
                     return self.rotacao_dir(n)
             n.altura = self.altura_no(n)
-        return n                        
+        return n
