@@ -43,7 +43,8 @@ def main():
                         status_tipo = Status.CONCLUIDO
                 
                 chamado = Chamado(identificador,descricao,categoria_tipo,prioridade_tipo,prazo,status_tipo)
-                tabela_hash.insere_chamado(chamado)
+                lista= tabela_hash.posiciona(prazo)
+                lista.insere_fim(item(identificador, chamado))
             case 2:
                 prazo = int(input("Digite o Prazo que deseja consultar: "))
 

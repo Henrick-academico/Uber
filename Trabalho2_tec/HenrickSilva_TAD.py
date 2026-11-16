@@ -106,6 +106,12 @@ class tabelahash:
         self.capacidade = capacidade
         self.tabela = [lista() for _ in range(capacidade)]
 
+    def procura_prazo(self, prazo:int)-> lista:
+        posicao = prazo % self.capacidade
+        if self.tabela[posicao].busca_item(prazo) == None:
+                self.tabela[posicao].insere_fim(item(prazo,lista()))
+        return self.tabela[posicao].busca(prazo).dado.contido
+
     def insere_chamado(self, chamado:Chamado):
         posicao = chamado.prazo % self.capacidade
         if self.tabela[posicao].busca_item(chamado.prazo) == None:
