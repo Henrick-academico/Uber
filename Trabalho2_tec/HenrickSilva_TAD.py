@@ -98,6 +98,15 @@ class lista:
                 exc.prox = None
                 return True
         return False
+    
+    def remove_ini(self):
+        if not self.vazia():
+            rem = self.primeiro
+            self.primeiro = self.primeiro.prox
+            if self.vazia():
+                self.ultimo = None
+            rem.prox = None
+            return rem.dado
 
 ##################################
 
@@ -108,15 +117,18 @@ class tabelahash:
 
     def procura_prazo(self, prazo:int)-> lista:
         posicao = prazo % self.capacidade
-        if self.tabela[posicao].busca_item(prazo) == None:
-                self.tabela[posicao].insere_fim(item(prazo,lista()))
-        return self.tabela[posicao].busca(prazo).dado.contido
+        if self.tabela[posicao].busca(prazo) != None:
+            return self.tabela[posicao].busca(prazo).dado.contido
+        else:
+            return None
 
     def insere_chamado(self, chamado:Chamado):
         posicao = chamado.prazo % self.capacidade
-        if self.tabela[posicao].busca_item(chamado.prazo) == None:
+        lista_altera = self.procura_prazo(chamado.prazo)
+        if lista_altera == None:
             self.tabela[posicao].insere_fim(item(chamado.prazo,lista()))
-        self.tabela[posicao].busca(chamado.prazo).dado.contido.insere_fim(item(chamado.identificador,chamado))
+        lista_altera = self.procura_prazo(chamado.prazo)
+        lista_altera.insere_fim(item(chamado.identificador,chamado))
 
     
   
