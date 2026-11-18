@@ -135,7 +135,13 @@ class tabelahash:
         lista_altera = self.procura_prazo(chamado.prazo)
         lista_altera.insere_fim(item(chamado.identificador,chamado))
 
-    
+    def exclui_chamado(self, chamado:Chamado):
+        posicao = chamado.prazo % self.capacidade
+        lista = self.tabela[posicao].busca(chamado.prazo)
+        if lista != None:
+            lista.dado.contido.remove_chave(chamado.identificador)
+            if lista.dado.contido.vazia():
+                self.remover_prazo(chamado.prazo)
   
 
    

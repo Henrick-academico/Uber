@@ -45,6 +45,8 @@ def preencher_chamado(identificador:int)->Chamado:
     status_tipo     = Status(status)          
     return Chamado(identificador,descricao,categoria_tipo,prioridade_tipo,prazo,status_tipo)
 
+def exclui 
+
 
 def main():
     repetir = True
@@ -82,14 +84,11 @@ def main():
                     imprime_chamado(chamado_alterar)
                     print("\n Novos valores para o chamado")
                     chamado = preencher_chamado(chamado_alterar.identificador)
-                    lista_alterar = tabela_hash.procura_prazo(chamado_alterar.prazo)
-                    lista_alterar.remove_chave(chamado_alterar.identificador)
                     tabela_hash.insere_chamado(chamado)
-                    if lista_alterar.vazia():
-                        tabela_hash.remover_prazo(chamado_alterar.prazo)
+                    tabela_hash.exclui_chamado(chamado_alterar)
             case 5:
-                prazo = int(input("Digite o chamado que deseja excluir: "))
-                identificador_procura = int(input("Digite o ID que deseja excluir: "))
+                chamado_excluir = valida_existencia
+                tabela_hash.exclui_chamado(chamado_excluir)
             case 6:
                 print("listar chamados")
             
