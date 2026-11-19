@@ -45,7 +45,8 @@ def preencher_chamado(identificador:int)->Chamado:
     status_tipo     = Status(status)          
     return Chamado(identificador,descricao,categoria_tipo,prioridade_tipo,prazo,status_tipo)
 
-def exclui 
+def exclui():
+    return
 
 
 def main():
@@ -87,22 +88,31 @@ def main():
                     tabela_hash.insere_chamado(chamado)
                     tabela_hash.exclui_chamado(chamado_alterar)
             case 5:
-                chamado_excluir = valida_existencia
+                chamado_excluir = valida_existencia(tabela_hash,"excluir")
                 tabela_hash.exclui_chamado(chamado_excluir)
+
             case 6:
-                print("listar chamados")
+                
+                tabela_exibir = deepcopy(tabela_hash)
+                i = 0
+                print(tabela_exibir.vazia())
+                while not(tabela_exibir.vazia()) or i>=tabela_exibir.capacidade:
+                    lista_prazos = tabela_exibir.tabela[i]
+                    while not(lista_prazos.vazia()):
+                        prazo_exibir = lista_prazos.primeiro.dado.contido
+                        while not(prazo_exibir.vazia()):
+                            chamado_exibir = prazo_exibir.primeiro.dado.contido
+                            imprime_chamado(chamado_exibir)
+                            prazo_exibir.remove_ini()
+                        lista_prazos.remove_ini()
+                    i+=1
+
+                
             
             case 7:
                 repetir = False
             case _:
                 print("Informe um valor valido")
 
-
-
-
-
-
-
-main()
 
 main()

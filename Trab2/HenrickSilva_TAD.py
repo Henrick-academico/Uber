@@ -142,7 +142,12 @@ class tabelahash:
             lista.dado.contido.remove_chave(chamado.identificador)
             if lista.dado.contido.vazia():
                 self.remover_prazo(chamado.prazo)
-  
+
+    def vazia(self) -> bool:
+        for prazos in self.tabela:
+            if not(prazos.vazia()):
+                return False
+        return True
 
    
 
