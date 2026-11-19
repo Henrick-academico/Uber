@@ -59,17 +59,6 @@ class lista:
         else:
             return None
     
-    def insere_ini(self, x:item) -> bool:
-        if self.busca(x.chave) == None:
-            novo = no(x)
-            if self.vazia():
-                self.ultimo = novo
-            novo.prox = self.primeiro
-            self.primeiro = novo
-            return True
-        else:
-            return False
-
     def insere_fim(self, x:item) -> bool:
         if self.busca(x.chave) == None:
             novo = no(x)

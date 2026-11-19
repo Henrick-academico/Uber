@@ -2,6 +2,19 @@ from dataclasses import dataclass
 from HenrickSilva_TAD import *
 
 def valida(limite: int, texto:str)-> int:
+    '''
+    Valida se uma entrada está dentro do *limite* e em formato int, *texto* é a pergunta para receber a entrada
+    Exemplo:
+    >>> valida(200, "digite um número:")
+    digite um número:
+    300
+    digite um valor valido
+    digite um número:
+    trinta e dois
+    digite um valor valido
+    digite um número:
+    32
+    '''
     variavel = 0
     while 0 >= variavel or variavel >= limite:
         try:
@@ -13,11 +26,21 @@ def valida(limite: int, texto:str)-> int:
     return variavel
 
 def imprime_chamado(chamado:Chamado):
+    '''
+    Imprime todas as informações de *chamado* formatado
+    Exemplo:
+    >>> chamado1 = Chamado(101,"problema1", Categoria.REDE, Prioridade.ALTA, 20, Status.ABERTO)
+    >>> chamado2 = Chamado(102,"problema2", Categoria.HARDWARE, Prioridade.MEDIA, 10, Status.ATENDIMENTO)
+    >>> chamado3 = Chamado(103,"problema3", Categoria.SISTEMA, Prioridade.BAIXA, 8, Status.CONCLUIDO)
+        
+    
+
+    '''
     print("ID:",chamado.identificador)
     print("Descrição:",chamado.descricao)
-    print("Categoria:",chamado.categoria.value)
-    print("Prioridade:",chamado.prioridade.value)
-    print("Status:",chamado.status.value)
+    print("Categoria:",chamado.categoria.name)
+    print("Prioridade:",chamado.prioridade.name)
+    print("Status:",chamado.status.name)
     print()
 
 def valida_existencia(tabela_hash: tabelahash ,verbo:str)-> Chamado | None:
@@ -45,8 +68,6 @@ def preencher_chamado(identificador:int)->Chamado:
     status_tipo     = Status(status)          
     return Chamado(identificador,descricao,categoria_tipo,prioridade_tipo,prazo,status_tipo)
 
-def exclui():
-    return
 
 
 def main():
@@ -92,11 +113,10 @@ def main():
                 tabela_hash.exclui_chamado(chamado_excluir)
 
             case 6:
-                
                 tabela_exibir = deepcopy(tabela_hash)
                 i = 0
-                print(tabela_exibir.vazia())
-                while not(tabela_exibir.vazia()) or i>=tabela_exibir.capacidade:
+                
+                while not(tabela_exibir.vazia()) or i >= tabela_exibir.capacidade:
                     lista_prazos = tabela_exibir.tabela[i]
                     while not(lista_prazos.vazia()):
                         prazo_exibir = lista_prazos.primeiro.dado.contido
@@ -107,8 +127,6 @@ def main():
                         lista_prazos.remove_ini()
                     i+=1
 
-                
-            
             case 7:
                 repetir = False
             case _:
